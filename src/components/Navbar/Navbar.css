@@ -1,0 +1,33 @@
+/* Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #2d3748;
+  color: #ffffff;
+}
+
+.logo h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.navigation ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.navigation a:hover {
+  text-decoration: underline;
+}
