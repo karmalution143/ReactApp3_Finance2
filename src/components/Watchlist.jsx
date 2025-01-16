@@ -23,25 +23,28 @@ function Watchlist() {
             day: 'numeric',
         });
         setCurrentDate(formattedDate);
-
+    
         const fetchWatchlist = async () => {
             setIsLoading(true);
             setError('');
-
+        
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/get-watchlist.php`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/get-watchlist.php`, {
                     params: { page: currentPage },
+                    withCredentials: true,
                 });
-
-                const watchlist = response.data;
-
-                if (!Array.isArray(watchlist.stocks)) {
-                    throw new Error('Stocks data is not an array');
+        
+                // Log the response data
+                console.log("API Response:", response.data);
+        
+                if (Array.isArray(response.data.stocks)) {
+                    setStocks(response.data.stocks); // Correctly update state if stocks is an array
+                } else {
+                    console.error("Stocks data is not an array", response.data.stocks);
                 }
-
-                setStocks(watchlist.stocks);
-                setTotalPages(watchlist.totalPages);
-
+        
+                setTotalPages(response.data.totalPages);
+        
             } catch (err) {
                 console.error(err);
                 setError('Failed to load watchlist.');
@@ -49,16 +52,20 @@ function Watchlist() {
                 setIsLoading(false);
             }
         };
-
+    
         fetchWatchlist();
-    }, [currentPage]);
+    }, [currentPage]); // Re-run effect on page change
+    
 
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this stock?')) return;
-
+    
         try {
-            const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/delete-stock.php?id=${id}`);
-            if (response.status === 204) {
+            const response = await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/api/delete-stock.php?id=${id}`, {
+                withCredentials: true,
+            });
+            if (response.status === 200) {
+                // Update the stock list after successful deletion
                 setStocks(stocks.filter((stock) => stock.id !== id));
             } else {
                 alert('Failed to delete the stock. Please try again.');
@@ -70,12 +77,13 @@ function Watchlist() {
     };
 
     const handlePageChange = (page) => {
-        setCurrentPage(page);
+        if (page > 0 && page <= totalPages) {
+            setCurrentPage(page);
+        }
     };
 
     const handleEdit = (id) => {
         const stockToEdit = stocks.find((stock) => stock.id === id);
-
         navigate(`/edit-stock/${id}`, { state: { stock: stockToEdit } });
     };
 
@@ -148,8 +156,8 @@ function Watchlist() {
             </div>
             <div className="mt-4">
                 <small className="text-muted d-block">
-                * Note: API requests are limited to 5 calls per minute as the website is currently in beta testing. 
-                Stock prices shown reflect the closing prices of the previous trading day.
+                    * Note: API requests are limited to 5 calls per minute as the website is currently in beta testing. 
+                    Stock prices shown reflect the closing prices of the previous trading day.
                 </small>
             </div>
         </div>

@@ -17,7 +17,11 @@ function EditStock() {
     useEffect(() => {
         const fetchStockDetails = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/edit-stock.php?id=${id}`);
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/edit-stock.php?id=${id}`,
+                    { withCredentials: true }
+                );
+
                 const { symbol, note } = response.data;
                 setSymbol(symbol || '');
                 setNote(note || '');
@@ -49,7 +53,7 @@ function EditStock() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/edit-stock.php`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/edit-stock.php`, {
                 id,
                 symbol,
                 note,
@@ -57,6 +61,7 @@ function EditStock() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                withCredentials: true,
             });
             console.log(response.data);
             navigate('/watchlist');
@@ -71,7 +76,7 @@ function EditStock() {
         <div className="container mt-4">
             <h2>Edit Stock</h2>
 
-            <Link to="/" className="btn btn-secondary mb-3">
+            <Link to="/watchlist" className="btn btn-secondary mb-3">
                 Back to Watchlist
             </Link>
 

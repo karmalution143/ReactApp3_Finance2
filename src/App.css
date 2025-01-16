@@ -33,4 +33,58 @@
   }
 }
 
+/* App.css */
+.home-screen {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.login-register-section {
+  width: 45%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-register-buttons {
+  margin-top: 20px;
+}
+
+.login-register-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-register-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.stock-of-the-month-section {
+  width: 45%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stock-info p {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.stock-info p strong {
+  font-size: 20px;
+}
+
+
 

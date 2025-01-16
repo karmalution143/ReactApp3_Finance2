@@ -31,3 +31,47 @@
 .navigation a:hover {
   text-decoration: underline;
 }
+
+/* Default styling for dropdown menu (hidden by default) */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #343a40;
+  border: none;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  opacity:0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+/* Display the dropdown menu when hovering over the parent */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  transform: translateY(0);
+}
+
+/* Style the dropdown items */
+.dropdown-item {
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #495057; /* Slightly lighter gray */
+  color: white;
+}
+
+/* Ensure the dropdown menu aligns properly below the Login link */
+.nav-item.dropdown {
+  position: relative;
+}
+
+.dropdown-menu li {
+  padding: 0;
+}

@@ -30,12 +30,16 @@ function AddStock() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/add-stock.php`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/add-stock.php`, {
                 symbol,
                 note
+            },
+            {
+                withCredentials: true  // Send cookies with the request
             });
+
             console.log(response.data);
-            navigate('/');
+            navigate('/watchlist');
         } catch (error) {
             console.error(error);
             setError('Failed to add stock. Please try again later.');
@@ -47,7 +51,7 @@ function AddStock() {
         <div className="container mt-4">
             <h2>Add a Stock to Watchlist</h2>
 
-            <Link to="/" className="btn btn-secondary mb-3">
+            <Link to="/watchlist" className="btn btn-secondary mb-3">
                 Back to Watchlist
             </Link>
 
